@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present a tyres_running_info entity.
+ *
+ * This template is used when viewing a canonical tyres_running_info page,
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.label'.
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_typer_running_info()
+ */
+#}
+<article{{ attributes }}>
+  {% if view_mode != 'full' %}
+    {{ title_prefix }}
+    {{ title_suffix }}
+  {% endif %}
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</article>

@@ -1,0 +1,10 @@
+entity.typer_running_info.settings:
+  title: 'tyres_running_info'
+  description: 'Configure a tyres_running_info entity type.'
+  route_name:  entity.typer_running_info.settings
+  parent: system.admin_structure
+entity.typer_running_info.collection:
+  title: 'tyres_running_infos'
+  description: 'List of tyres_running_infos.'
+  route_name: entity.typer_running_info.collection
+  parent: system.admin_content

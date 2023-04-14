@@ -1,0 +1,5 @@
+type: module
+name: 'tyres running info'
+description: 'tyres_running_info.'
+package: Custom
+core_version_requirement: ^9.3 || ^10.0

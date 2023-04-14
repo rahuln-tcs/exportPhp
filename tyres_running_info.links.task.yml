@@ -1,0 +1,22 @@
+entity.typer_running_info.settings:
+  title: 'Settings'
+  route_name: entity.typer_running_info.settings
+  base_route: entity.typer_running_info.settings
+entity.typer_running_info.view:
+  title: 'View'
+  route_name: entity.typer_running_info.canonical
+  base_route: entity.typer_running_info.canonical
+entity.typer_running_info.edit_form:
+  title: 'Edit'
+  route_name: entity.typer_running_info.edit_form
+  base_route: entity.typer_running_info.canonical
+entity.typer_running_info.delete_form:
+  title: 'Delete'
+  route_name: entity.typer_running_info.delete_form
+  base_route: entity.typer_running_info.canonical
+  weight: 10
+entity.typer_running_info.collection:
+  title: 'tyres_running_infos'
+  route_name: entity.typer_running_info.collection
+  base_route: system.admin_content
+  weight: 10

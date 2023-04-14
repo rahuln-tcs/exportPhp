@@ -1,0 +1,3 @@
+administer tyres_running_info:
+  title: 'Administer tyres_running_info settings'
+  restrict access: true

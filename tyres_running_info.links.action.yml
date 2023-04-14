@@ -1,0 +1,5 @@
+typer_running_info.add_form:
+  title: 'Add tyres_running_info'
+  route_name: entity.typer_running_info.add_form
+  appears_on:
+    - entity.typer_running_info.collection

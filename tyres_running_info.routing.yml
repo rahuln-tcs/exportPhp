@@ -1,0 +1,15 @@
+entity.typer_running_info.settings:
+  path: 'admin/structure/typer-running-info'
+  defaults:
+    _form: '\Drupal\tyres_running_info\Form\TyperRunningInfoSettingsForm'
+    _title: 'tyres_running_info'
+  requirements:
+    _permission: 'administer tyres_running_info'
+
+typer_running_info.export:
+  path: 'admin/tyres/export'
+  defaults:
+    _form: '\Drupal\tyres_running_info\Form\TyresExportForm'
+    _title: 'tyres_running_info'
+  requirements:
+    _permission: 'administer tyres_running_info'

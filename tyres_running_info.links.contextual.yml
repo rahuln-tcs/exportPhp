@@ -1,0 +1,10 @@
+entity.typer_running_info.edit_form:
+  route_name: entity.typer_running_info.edit_form
+  group: typer_running_info
+  title: Edit
+
+entity.typer_running_info.delete_form:
+  route_name: entity.typer_running_info.delete_form
+  group: typer_running_info
+  title: Delete
+  weight: 10

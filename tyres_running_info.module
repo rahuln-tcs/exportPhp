@@ -1,0 +1,92 @@
+<?php
+
+/**
+ * @file
+ * Provides a tyres_running_info entity type.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\tyres_running_info\Entity\TyperRunningInfo;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function tyres_running_info_theme() {
+  return [
+    'typer_running_info' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for tyres_running_info templates.
+ *
+ * Default template: typer-running-info.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the tyres_running_info information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_typer_running_info(array &$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function tyres_running_info_user_cancel($edit, UserInterface $account, $method) {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish tyres_running_infos.
+      $storage = \Drupal::entityTypeManager()->getStorage('typer_running_info');
+      $typer_running_info_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->execute();
+      foreach ($storage->loadMultiple($typer_running_info_ids) as $typer_running_info) {
+        $typer_running_info->set('status', FALSE);
+        $typer_running_info->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize tyres_running_infos.
+      $storage = \Drupal::entityTypeManager()->getStorage('typer_running_info');
+      $typer_running_info_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->execute();
+      foreach ($storage->loadMultiple($typer_running_info_ids) as $typer_running_info) {
+        $typer_running_info->setOwnerId(0);
+        $typer_running_info->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function tyres_running_info_user_predelete(UserInterface $account) {
+  // Delete tyres_running_infos.
+  $storage = \Drupal::entityTypeManager()->getStorage('typer_running_info');
+  $typer_running_info_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->execute();
+  $typer_running_infos = $storage->loadMultiple($typer_running_info_ids);
+  $storage->delete($typer_running_infos);
+  // Delete old revisions.
+  $typer_running_info_ids = $storage->getQuery()
+    ->allRevisions()
+    ->condition('uid', $account->id())
+    ->execute();
+  foreach (array_keys($typer_running_info_ids) as $revision_id) {
+    $storage->deleteRevision($revision_id);
+  }
+}
